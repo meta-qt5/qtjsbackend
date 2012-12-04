@@ -24,5 +24,10 @@ unix:LIBS += -lpthread
 
 # We don't need to install this tool, it's only used for building v8.
 # However we do have to make sure that 'make install' builds it.
-dummytarget.CONFIG = dummy_install
-INSTALLS += dummytarget
+#dummytarget.CONFIG = dummy_install
+#INSTALLS += dummytarget
+
+# Install the tool so that during target cross compilation we have access to the native side binary
+target.path = $$[QT_HOST_BINS]
+INSTALLS += target
+
