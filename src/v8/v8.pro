@@ -25,7 +25,10 @@ INCLUDEPATH -= $$MODULE_INCLUDES $$MODULE_INCLUDES/..
 include(v8.pri)
 
 contains(QT_CONFIG, v8snapshot) {
-    mkv8snapshot.commands = ../../bin/mkv8snapshot$$qtPlatformTargetSuffix() ${QMAKE_FILE_OUT}
+    mkv8snapshot.tool=$$[QT_EXTERNAL_HOST_BINS]/mkv8snapshot$$qtPlatformTargetSuffix()
+    !exists($$mkv8snapshot.tool): \
+        mkv8snapshot.tool=../../bin/mkv8snapshot$$qtPlatformTargetSuffix()
+    mkv8snapshot.commands = $$mkv8snapshot.tool ${QMAKE_FILE_OUT}
     DUMMY_FILE = v8.pro
     mkv8snapshot.input = DUMMY_FILE
     mkv8snapshot.output = $$V8_GENERATED_SOURCES_DIR/snapshot.cpp
